@@ -35,3 +35,9 @@ RunNetOnce用来运行生成权值和数据的网络，常用于初始化，这�
   3 color channels (in BGR), </br>
   224 height, </br>
   224 width. </br>
+  
+3. caffe2模型构建</br>
+(1) The data input part (AddInput function)</br>
+(2) The main computation part (AddModel function)</br>
+(3) The training part - adding gradient operators, optimization algorithm, etc. (AddTrainingOperators function)</br>
+(4) The bookkeeping part, where we just print out statistics for inspection. (AddBookkeepingOperators function)</br>
