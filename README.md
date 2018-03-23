@@ -41,3 +41,6 @@ RunNetOnce用来运行生成权值和数据的网络，常用于初始化，这�
 (2) The main computation part (AddModel function)</br>
 (3) The training part - adding gradient operators, optimization algorithm, etc. (AddTrainingOperators function)</br>
 (4) The bookkeeping part, where we just print out statistics for inspection. (AddBookkeepingOperators function)</br>
+
+4. Data structure</br>
+NCHW: [batch_size, num_channels, width, height]</br>
