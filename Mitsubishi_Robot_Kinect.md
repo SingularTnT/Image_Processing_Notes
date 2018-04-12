@@ -470,3 +470,35 @@ Release the objects.
 release(colorDevice);
 release(depthDevice);
 ```
+
+#### Input Arguments
+
+**depthDevice — Input video object** (videoinput object | imaq.VideoDevice object) : </br>
+Input video object, specified as either a videoinput object or an imaq.VideoDevice object configured for Kinect for Windows.
+
+**depthImage — Depth image** (M-by-N matrix) : </br>
+Depth image, specified as an M-by-N pixel matrix. The original images, depthImage and colorImage, from Kinect are mirror images of the scene.
+
+The Kinect depth camera has limited range. The limited range of the Kinect depth camera can cause pixel values in the depth image to not have corresponding 3-D coordinates. These missing pixel values are set to NaN in the Location property of the returned point cloud.
+
+Data Types: uint16
+
+**colorImage — Color image** (M-by-N-by-3 RGB truecolor image) : </br>
+Color image, specified as an M-by-N-by-3 RGB truecolor image that the Kinect returns. The original images, depthImage and colorImage, from Kinect are mirror images of the scene.
+
+Data Types: uint8
+
+**alignment — Direction of the image coordinate system** ('colorCentric' (default) | 'depthCentric') : </br>
+Direction of the image coordinate system, specified as the character vector 'colorCentric' or 'depthCentric'. Set this value to 'colorCentric' to align depthImage with colorImage. Set alignment to 'depthCentric' to align colorImage with depthImage.
+
+The origin of a right-handed world coordinate system is at the center of the depth camera. The x-axis of the coordinate system points to the right, the y-axis points downward, and the z-axis points from the camera.
+
+<div align="center">
+  <img src="img/pcfromkinect_coordinate.png" width="700px" />
+</div>
+
+#### Output Arguments
+
+**ptCloud — Point cloud** (pointCloud object) : </br>
+Point cloud, returned as a pointCloud object. The origin of the coordinate system of the returned point cloud is at the center of the depth camera.
+
