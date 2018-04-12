@@ -189,5 +189,13 @@ figrue(2)
 imshow(depthFrameData)
 ```
 
-|color|depth|
-|![rgb_1](https://github.com/singularTnT/image-processing-note/blob/master/img/rgb_1.bmp)|![depth_1](https://github.com/singularTnT/image-processing-note/blob/master/img/depth_1.bmp)|
+<table><tr>
+<td>
+  <p align="center">color</p>
+  <img src="img/rgb_1.bmp" border=0>
+  </td>
+<td>
+  <p align="center">depth</p>
+  <img src="img/depth_1.bmp"border=0>
+  </td>
+</tr></table>
