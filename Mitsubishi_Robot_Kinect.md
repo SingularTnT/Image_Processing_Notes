@@ -112,3 +112,82 @@ In order to acquire synchronized color and depth data, we must use manual trigge
 % Create the VIDEOINPUT objects for the two streams
 colorVid = videoinput('kinect',1)
 ```
+
+    Summary of Video Input Object Using 'Kinect Color Sensor'.
+
+    Acquisition Source(s):  Color Source is available.
+
+    Acquisition Parameters:  'Color Source' is the current selected source.
+                           10 frames per trigger using the selected source.
+                           'RGB_640x480' video data to be logged upon START.
+                           Grabbing first of every 1 frame(s).
+                           Log data to 'memory' on trigger.
+
+      Trigger Parameters:  1 'immediate' trigger(s) on START.
+
+                  Status:  Waiting for START.
+                           0 frames acquired since starting.
+                           0 frames available for GETDATA.
+                           
+```
+depthVid = videoinput('kinect',2)
+```
+
+    Summary of Video Input Object Using 'Kinect Depth Sensor'.
+
+    Acquisition Source(s):  Depth Source is available.
+
+    Acquisition Parameters:  'Depth Source' is the current selected source.
+                           10 frames per trigger using the selected source.
+                           'Depth_640x480' video data to be logged upon START.
+                           Grabbing first of every 1 frame(s).
+                           Log data to 'memory' on trigger.
+
+      Trigger Parameters:  1 'immediate' trigger(s) on START.
+
+                  Status:  Waiting for START.
+                           0 frames acquired since starting.
+                           0 frames available for GETDATA.
+
+```
+% Set the triggering mode to 'manual'
+triggerconfig([colorVid depthVid],'manual');
+```
+
+Set the FramesPerTrigger property of the VIDEOINPUT objects to '1' to acquire 1 frames per trigger. 
+
+```
+colorVid.FramesPerTrigger = 1;
+depthVid.FramesPerTrigger = 1;
+
+% Start the color and depth device. This begins acquisition, but does not
+% start logging of acquired data.
+start([colorVid depthVid]);
+```
+
+Set the Kinect senser acquire color and depth data as manual trigger.
+
+```
+% Trigger the devices to start logging of data.
+trigger([colorVid depthVid]);
+
+% Retrieve the acquired data
+[colorFrameData,colorTimeData,colorMetaData] = getdata(colorVid);
+[depthFrameData,depthTimeData,depthMetaData] = getdata(depthVid);
+
+% Stop the devices
+stop([colorVid depthVid]);
+```
+
+Display the acquired data
+
+```
+figure(1)
+imshow(colorFrameData)
+
+figrue(2)
+imshow(depthFrameData)
+```
+
+|||
+|![rgb_1](https://github.com/singularTnT/VPS-Configuration/blob/master/pic/deploy_new_server.png)|![depth_1](https://github.com/singularTnT/VPS-Configuration/blob/master/pic/deploy_new_server.png)|
