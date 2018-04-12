@@ -191,11 +191,36 @@ imshow(depthFrameData)
 
 <table><tr>
 <td>
-  <p align="center">color</p>
+  <p align="center"> color image </p>
   <img src="img/rgb_1.bmp" border=0>
   </td>
 <td>
-  <p align="center">depth</p>
+  <p align="center"> depth image </p>
+  <img src="img/depth_1.bmp"border=0>
+  </td>
+</tr></table>
+
+Since depth image is uint16 type, one cannot distinguish the diffence of the grey level, so it is recommended to  re-quantization the grey level for a display convenience.
+
+```
+% Adaptive histogram equalization
+H1=adapthisteq(depthFrameData);
+figure(3);
+imshow(H1);
+
+% Histogram equalization
+H2=histeq(depthFrameData);
+figure(4);
+imshow(H2);
+```
+
+<table><tr>
+<td>
+  <p align="center"> color image </p>
+  <img src="img/rgb_1.bmp" border=0>
+  </td>
+<td>
+  <p align="center"> depth image </p>
   <img src="img/depth_1.bmp"border=0>
   </td>
 </tr></table>
