@@ -189,5 +189,5 @@ figrue(2)
 imshow(depthFrameData)
 ```
 
-|||
-|![rgb_1](https://github.com/singularTnT/VPS-Configuration/blob/master/pic/deploy_new_server.png)|![depth_1](https://github.com/singularTnT/VPS-Configuration/blob/master/pic/deploy_new_server.png)|
+|color|depth|
+|![rgb_1](https://github.com/singularTnT/image-processing-note/blob/master/img/rgb_1.bmp)|![depth_1](https://github.com/singularTnT/image-processing-note/blob/master/img/depth_1.bmp)|
