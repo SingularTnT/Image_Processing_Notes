@@ -50,6 +50,7 @@ Note: The resolution of the depth stream is dependent on the frame rate, and is 
 - [Image Acquisition Toolbox](https://ww2.mathworks.cn/products/imaq.html)
 - [Computer Vision System Toobox](https://ww2.mathworks.cn/products/computer-vision.html) -- (optional)
 - [OpenNI](http://www.openni.ru/) -- (optional)
+- [MATPCL](https://ww2.mathworks.cn/matlabcentral/fileexchange/40382-matlab-to-point-cloud-library) -- (optional)
 
 ## Quick Start: Using the Kinect® for Windows® V1 from Image Acquisition Toolbox™
 
@@ -58,6 +59,7 @@ This example shows how to obtain the data available from Kinect for Windows V1 s
 #### See What Kinect for Windows Devices and Formats are Available
 
 The Kinect for Windows has two sensors, an color sensor and a depth sensor. To enable independent acquisition from each of these devices, they are treated as two independent devices in the Image Acquisition Toolbox. This means that separate VIDEOINPUT object needs to be created for each of the color and depth(IR) devices.
+Typically, each camera or image device in the Image Acquisition Toolbox™ has one DeviceID. Because the Kinect® for Windows® camera has two separate sensors, the color sensor and the depth sensor, the toolbox lists two DeviceIDs. Use imaqhwinfo on the adaptor to display the two device IDs.
 
 ```
 % The Kinect for Windows Sensor shows up as two separate devices in IMAQHWINFO.
@@ -74,6 +76,8 @@ hwInfo = imaqhwinfo('kinect')
             DeviceIDs: {[1]  [2]}
            DeviceInfo: [1×2 struct]
            
+If you look at each device, you can see that they represent the color sensor and the depth sensor. The following shows the color sensor.
+
 ```
 hwInfo.DeviceInfo(1)
 ```
@@ -88,6 +92,8 @@ hwInfo.DeviceInfo(1)
      VideoInputConstructor: 'videoinput('kinect', 1)'
     VideoDeviceConstructor: 'imaq.VideoDevice('kinect', 1)'
           SupportedFormats: {'Infrared_640x480'  'RGB_1280x960'  'RGB_640x480'  'RawBayer_1280x960'  'RawBayer_640x480'  'RawYUV_640x480'  'YUV_640x480'}
+
+The following shows the depth sensor, which is Device 2.
 
 ```
 hwInfo.DeviceInfo(2)
@@ -227,4 +233,127 @@ imshow(H2);
 </tr>
 </table>
 
+#### Acquire Data from Kinect V1 Color and Depth Devices Simultaneously
 
+You can synchronize the data from the Kinect® for Windows® color stream and the depth stream using software manual triggering.
+This example shows the synchronization method used to manually trigger both objects.
+
+1. Create the objects for the color and depth sensors. Device 1 is the color sensor and Device 2 is the depth sensor.
+
+```
+vid = videoinput('kinect',1);
+vid2 = videoinput('kinect',2);
+```
+
+2. Get the source properties for the depth device.
+
+```
+srcDepth = getselectedsource(vid2);
+```
+
+3. Set the frames per trigger for both devices to 1.
+
+```
+vid.FramesPerTrigger = 1;
+vid2.FramesPerTrigger = 1;
+```
+
+4. Set the trigger repeat for both devices to 200, in order to acquire 201 frames from both the color sensor and the depth sensor.
+
+```
+vid.TriggerRepeat = 200;
+vid2.TriggerRepeat = 200;
+```
+
+5. Configure the camera for manual triggering for both sensors.
+
+```
+triggerconfig([vid vid2],'manual');
+```
+
+6. Start both video objects.
+
+```
+start([vid vid2]);
+```
+
+7. Trigger the devices, then get the acquired data.
+
+```
+% Trigger 200 times to get the frames.
+for i = 1:200
+    % Trigger both objects.
+    trigger([vid vid2])
+    % Get the acquired frames and metadata.
+    [imgColor, ts_color, metaData_Color] = getdata(vid);
+    [imgDepth, ts_depth, metaData_Depth] = getdata(vid2);
+end
+```
+
+
+## Matlab Kinect Function
+
+Acquire image data from Kinect for Windows V1, The Kinect adaptor lets you acquire images using a Kinect® for Windows® V1 or V2 device. The Kinect V1 sensor runs on Windows 7 and above.
+
+#### Functions
+
+|Functions | Explanation |
+| :------------ |:---------------:|
+|[imaqtool](https://ww2.mathworks.cn/help/imaq/imaqtool.html) | Launch Image Acquisition Tool |
+|[videoinput](https://ww2.mathworks.cn/help/imaq/videoinput.html) | Create video input object |
+|[imaq.VideoDevice](https://ww2.mathworks.cn/help/imaq/imaq.videodevice.html) | Acquire one frame at a time from video device |
+|[getdata](https://ww2.mathworks.cn/help/imaq/getdata.html) | Acquired image frames to MATLAB workspace |
+|[peekdata](https://ww2.mathworks.cn/help/imaq/peekdata.html) | Most recently acquired image data |
+|[getsnapshot](https://ww2.mathworks.cn/help/imaq/getsnapshot.html) | Immediately return single image frame |
+|[start](https://ww2.mathworks.cn/help/imaq/start.html) | Obtain exclusive use of image acquisition device |
+|[islogging](https://ww2.mathworks.cn/help/imaq/islogging.html) | Determine whether video input object is logging |
+|[isrunning](https://ww2.mathworks.cn/help/imaq/isrunning.html) | Determine whether video input object is running |
+|[isvalid](https://ww2.mathworks.cn/help/imaq/isvalid.html) | Determine whether image acquisition object is associated with image acquisition device |
+|[wait](https://ww2.mathworks.cn/help/imaq/wait.html) | Wait until image acquisition object stops running or logging |
+|[stop](https://ww2.mathworks.cn/help/imaq/stop.html) | Stop video input object |
+|[clear](https://ww2.mathworks.cn/help/imaq/clear.html) | Clear image acquisition object from MATLAB workspace |
+|[delete](https://ww2.mathworks.cn/help/imaq/delete.html) | Remove image acquisition object from memory |
+|[flushdata](https://ww2.mathworks.cn/help/imaq/flushdata.html) | Remove data from memory buffer used to store acquired image frames |
+|[obj2mfile](https://ww2.mathworks.cn/help/imaq/obj2mfile.html) | Convert video input objects to MATLAB code |
+|[imaqmontage](https://ww2.mathworks.cn/help/imaq/imaqmontage.html) | Sequence of image frames as montage |
+|[load](https://ww2.mathworks.cn/help/imaq/load.html) | Load image acquisition object into MATLAB workspace |
+|[save](https://ww2.mathworks.cn/help/imaq/save.html) | Save image acquisition objects to MAT-file |
+|[trigger](https://ww2.mathworks.cn/help/imaq/trigger.html) | Initiate data logging |
+|[triggerconfig](https://ww2.mathworks.cn/help/imaq/triggerconfig.html) | Configure video input object trigger properties |
+|[triggerinfo](https://ww2.mathworks.cn/help/imaq/triggerinfo.html) | Provide information about available trigger configurations |
+
+#### Color sensor device-specific properties
+
+|Device-Specific Property – Color Sensor | Description |
+| :------------ |:---------------:|
+|Accelerometer | Returns 3-D vector of acceleration data for both the color and depth sensors. The data is updated while the device is running or previewing. This 1 x 3 double represents the x, y, and z values of acceleration in gravity units g (9.81m/s^2). For example,[0.06 -1.00 -0.09] represents values of x as 0.06 g, y as -1.00 g, and z as -0.09 g. |
+|AutoExposure | Use to set the exposure automatically. This control whether other related properties are activated. Values are on (default) and off. on means that exposure is set automatically, and these properties are not able to be set and will throw a warning: FrameInterval, ExposureTime, and Gain. off means that these properties are not able to be set and will throw a warning: PowerLineFrequency, BacklightCompensation, and Brightness. |
+|AutoWhiteBalance | Use to enable or disable automatic white balance setting. on (default) means that it will automatically configure white balance and the WhiteBalance property cannot be set. off means that the WhiteBalance property is settable.|
+|BacklightCompensation | Configures backlight compensation modes to adjust the camera to capture images dependent on environmental conditions.Note that this property is only valid if AutoExposure is set to Enabled. The default is AverageBrightness. Values are: AverageBrightness favors an average brightness level CenterPriority favors the center of the scene LowLightsPriority favors a low light level CenterOnly favors the center only |
+|Brightness | Indicates the brightness level. The value range is 0.0 to 1.0, and the default value is 0.2156. Note that this property is only valid if AutoExposure is set to Enabled. |
+|CameraElevationAngle | Controls the angle of the sensor lens. This is the camera angle relative to the ground. The value must be an integer property with range of -27 to 27 degrees. The default value is the last set value, since this is a sticky setting. Only set it if you want to change the angle of the camera. This property is shared with the depth sensor also. |
+|Contrast | Indicates contrast level. Values must be in the range 0.5 to 2, with a default value of 1. |
+|ExposureTime | Indicates the exposure time in increments of 1/10,000 of a second. The value range is 0 to 4000, and the default is 0. Note that this property is only valid if AutoExposure is set to Disabled. |
+|FrameInterval | Indicates the frame interval in units of 1/10,000 of a second. The value range is 0 to 4000, and the default is 0. Note that this property is only valid if AutoExposure is set to Disabled. |
+|FrameRate | Frames per second for the acquisition. This property is read only and the possible values for the color sensor are 12, 15, and 30 (default). It reflects the actual frame rate when running. |
+|Gain | Indicates a multiplier for the RGB color values. The value range is 1.0 to 16.0, and the default is 1.0. Note that this property is only valid if AutoExposure is set to Disabled. |
+|Gamma | Indicates gamma measurement. Values must be in the range 1 to 2.8, with a default value of 2.2. |
+|Hue | Indicates hue setting. Values must be in the range -22 to 22, with a default value of 0. |
+|PowerLineFrequency | 	Option for reducing flicker caused by the frequency of a power line. Values are Disabled, FiftyHertz, and SixtyHertz. The default is Disabled. Note that this property is only valid if AutoExposure is set to Enabled. |
+|Saturation | Indicates saturation level. Values must be in the range 0 to 2, with a default value of 1. |
+|Sharpness | Indicates sharpness level. Values must be in the range 0 to 1, with a default value of 0.5. |
+|WhiteBalance | Indicates color temperature in degrees Kelvin. The value range is 2700 to 6500 and the default is 2700. Note that this property is only valid if AutoWhiteBalance is set to Disabled. |
+
+#### Depth sensor device-specific properties
+|Device-Specific Property – Depth Sensor | Description |
+| :------------ |:---------------:|
+|Accelerometer | 	Returns 3-D vector of acceleration data for both the color and depth sensors. The data is updated while the device is running or previewing. This 1 x 3 double represents the x, y, and z values of acceleration in gravity units g (9.81m/s^2). For example, [0.06 -1.00 -0.09] represents values of x as 0.06 g, y as -1.00 g, and z as -0.09 g. |
+|BodyPosture | Indicates whether the tracked skeletons are standing or sitting. Values are Standing (gives 20 point skeleton data) and Seated (gives 10 point skeleton data, using joint indices 2 - 11). Standing is the default. Note that if BodyPosture is set to Seated mode, and TrackingMode is set to Position, no position is returned, since Position is the location of the hip joint and the hip joint is not tracked in Seated mode. See the subsection “BodyPosture Joint Indices” at the end of this example for the list of indices of the 20 skeletal joints. |
+|CameraElevationAngle | Controls the angle of the sensor lens. This is the camera angle relative to the ground. The value must be an integer property with range of -27 to 27 degrees. The default value is the last set value, since this is a sticky setting. Only set it if you want to change the angle of the camera. This property is shared with the color sensor also. |
+|DepthMode | Indicates the range of depth in the depth map. Values are Default (range of 50 to 400 cm) and Near (range of 40 to 300 cm).|
+|FrameRate | Frames per second for the acquisition. This property is read only and is fixed at 30 for the depth sensor for all formats. It reflects the actual frame rate when running. |
+|IREmitter | 	Controls whether the IR emitter is on or off. Values are on and off. Initially, the default value is on. However, this is a sticky property, so the default value is the last set value. If you set it to off, it will remain off in future uses until you change the setting. An advantage of this property is that it is useful when using multiple Kinect devices to avoid interference. |
+|SkeletonsToTrack | Indicates the Skeleton Tracking ID returned as part of the metadata. Values are: [] Default tracking [TrackingID1] Track 1 skeleton with Tracking ID = TrackingID1 [TrackingID1 TrackingID2] Track 2 skeletons with Tracking IDs = TrackingID1 and TrackingID2 |
+|TrackingMode	| Indicates tracking state. Values are: Skeleton tracks full skeleton with joints Position tracks hip joint position only Off disables skeleton position tracking (default) Note that if BodyPosture is set to Seated mode, and TrackingMode is set to Position, no position is returned, since Position is the location of the hip joint and the hip joint is not tracked in Seated mode. |
+
+#### 
