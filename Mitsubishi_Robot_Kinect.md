@@ -2,7 +2,6 @@
 
 This document shows how to obtain the data available from Kinect for Windows V1 sensor using Image Acquisition Toolbox.
 
----
 ## Kinect for Windows Sensor Components and Specifications
 
 <div align="center">
@@ -44,7 +43,6 @@ Inside the sensor case, a Kinect for Windows sensor contains:
 
 Note: The resolution of the depth stream is dependent on the frame rate, and is specified by the DepthImageFormat Enumeration enumeration. Similarly, the resolution of the color stream is specified by the ColorImageFormat Enumeration enumeration.
 
----
 ## Dependece
 
 - [Matlab](https://www.mathworks.com/) -- R2013a and later
@@ -53,7 +51,6 @@ Note: The resolution of the depth stream is dependent on the frame rate, and is 
 - [Computer Vision System Toobox](https://ww2.mathworks.cn/products/computer-vision.html) -- (optional)
 - [OpenNI](http://www.openni.ru/) -- (optional)
 
----
 ## Quick Start: Using the Kinect® for Windows® V1 from Image Acquisition Toolbox™
 
 This example shows how to obtain the data available from Kinect for Windows V1 sensor using Image Acquisition Toolbox.
@@ -68,9 +65,6 @@ hwInfo = imaqhwinfo('kinect')
 ```
 
 hwInfo = 
-
-  包含以下字段的 struct:
-
        AdaptorDllName: 'C:\ProgramData\MATLAB\SupportPackages\R2017b\toolbox\imaq\supportpackages\kinectruntime\adaptor\win64\mwkinectimaq.dll'
     AdaptorDllVersion: '5.3 (R2017b)'
           AdaptorName: 'kinect'
