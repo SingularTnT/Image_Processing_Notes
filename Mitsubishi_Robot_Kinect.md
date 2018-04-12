@@ -62,10 +62,11 @@ This example shows how to obtain the data available from Kinect for Windows V1 s
 
 The Kinect for Windows has two sensors, an color sensor and a depth sensor. To enable independent acquisition from each of these devices, they are treated as two independent devices in the Image Acquisition Toolbox. This means that separate VIDEOINPUT object needs to be created for each of the color and depth(IR) devices.
 
-```
+```matlab
 % The Kinect for Windows Sensor shows up as two separate devices in IMAQHWINFO.
 hwInfo = imaqhwinfo('kinect')
 ```
+
 hwInfo = 
 
   包含以下字段的 struct:
