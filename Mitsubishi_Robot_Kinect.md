@@ -1,8 +1,9 @@
 # Using the Kinect® for Windows® V1 in Matlab
 
-**This document shows how to obtain the data available from Kinect for Windows V1 sensor using Image Acquisition Toolbox.*
+This document shows how to obtain the data available from Kinect for Windows V1 sensor using Image Acquisition Toolbox.
 
 ## Kinect for Windows Sensor Components and Specifications
+---
 
 <div align="center">
   <p>kinect version 1 senser</p>
