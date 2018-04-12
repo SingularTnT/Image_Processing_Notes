@@ -290,7 +290,6 @@ for i = 1:200
 end
 ```
 
-
 ## Matlab Kinect Function
 
 Acquire image data from Kinect for Windows V1, The Kinect adaptor lets you acquire images using a Kinect® for Windows® V1 or V2 device. The Kinect V1 sensor runs on Windows 7 and above.
@@ -356,4 +355,111 @@ Acquire image data from Kinect for Windows V1, The Kinect adaptor lets you acqui
 |SkeletonsToTrack | Indicates the Skeleton Tracking ID returned as part of the metadata. Values are: [] Default tracking [TrackingID1] Track 1 skeleton with Tracking ID = TrackingID1 [TrackingID1 TrackingID2] Track 2 skeletons with Tracking IDs = TrackingID1 and TrackingID2 |
 |TrackingMode	| Indicates tracking state. Values are: Skeleton tracks full skeleton with joints Position tracks hip joint position only Off disables skeleton position tracking (default) Note that if BodyPosture is set to Seated mode, and TrackingMode is set to Position, no position is returned, since Position is the location of the hip joint and the hip joint is not tracked in Seated mode. |
 
-#### 
+## (Optional) MATLAB to Point Cloud Library
+
+matpcl is pure MATLAB code that allows interfacing with the Point Cloud Library (PCL) tools by reading and writing PCD format files. Being pure MATLAB avoids all kinds of headaches in trying to link PCL code into MEX files which involves various grief such as versions of compilers and support libraries such as boost.
+
+There are only four user-level functions:
+
+|MATPCL functions | Description |
+| :------------ |:---------------:|
+|savepcd | writes a matrix as an optionally coloured point cloud in an ASCII PCD format file. |
+|loadpcd | reads an optionally colored point cloud from a PCD format file (ASCII or binary) and returns a matrix. |
+|pclviewer | writes a matrix to a temporary file and invokes the pcl_viewer app for visualization. This is much much faster for rotating a large point cloud than using a MATLAB 3D plot. |
+|lscpd | shows the attributes of the PCD files in the current directory |
+
+Point clouds are considered to be either: </br>
+- 2-d matrices, with one column per point. The rows are X, Y, Z and for a colored point cloud X, Y, Z, R, G, B. (R,G,B) are in the range 0 to 1. </br>
+- 3-d matrices, with planes X, Y, Z and for a colored point cloud X, Y, Z, R, G, B. (R,G,B) are in the range 0 to 1. </br>
+
+Limitations : </br>
+No support for reading/writing normals </br>
+
+#### Syntax
+
+```
+ptCloud = pcfromkinect(depthDevice,depthImage)
+ptCloud = pcfromkinect(depthDevice,depthImage,colorImage)
+ptCloud = pcfromkinect(depthDevice,depthImage,colorImage,alignment)
+```
+
+#### Description
+
+---
+ptCloud = pcfromkinect(depthDevice,depthImage) returns a point cloud from a Kinect® depth image. The depthDevice input can be either a videoinput object or an imaq.VideoDevice object configured for Kinect (Versions 1 and 2) for Windows®.This function requires the Image Acquisition Toolbox™ software, which supports Kinect for Windows.
+
+---
+ptCloud = pcfromkinect(depthDevice,depthImage,colorImage) adds color to the returned point cloud, specified by the colorImage input.
+The Kinect for Windows system, designed for gaming, produces depthImage and colorImage as mirror images of the scene. The returned point cloud is corrected to match the actual scene.
+
+---
+ptCloud = pcfromkinect(depthDevice,depthImage,colorImage,alignment) additionally returns the color point cloud with the origin specified at the center of the depth camera.
+
+### Examples
+
+#### Plot Color Point Cloud from Kinect for Windows
+
+Plot a color point cloud from Kinect images. This example requires the Image Acquisition Toolbox software and the Kinect camera and a connection to the camera.
+
+Create a System object™ for the color device.
+
+```
+colorDevice = imaq.VideoDevice('kinect',1)
+```
+
+Create a System object for the depth device.
+
+```
+depthDevice = imaq.VideoDevice('kinect',2)
+```
+
+Initialize the camera.
+
+```
+step(colorDevice);
+step(depthDevice);
+```
+
+Load one frame from the device.
+
+```
+colorImage = step(colorDevice);
+depthImage = step(depthDevice);
+```
+
+Extract the point cloud.
+
+```
+ptCloud = pcfromkinect(depthDevice,depthImage,colorImage);
+```
+
+Initialize a point cloud player to visualize 3-D point cloud data. The axis is set appropriately to visualize the point cloud from Kinect.
+
+```
+player = pcplayer(ptCloud.XLimits,ptCloud.YLimits,ptCloud.ZLimits,...
+	'VerticalAxis','y','VerticalAxisDir','down');
+
+xlabel(player.Axes,'X (m)');
+ylabel(player.Axes,'Y (m)');
+zlabel(player.Axes,'Z (m)');
+```
+
+Acquire and view 500 frames of live Kinect point cloud data.
+
+```
+for i = 1:500    
+   colorImage = step(colorDevice);  
+   depthImage = step(depthDevice);
+ 
+   ptCloud = pcfromkinect(depthDevice,depthImage,colorImage);
+ 
+   view(player,ptCloud);
+end
+```
+
+Release the objects.
+
+```
+release(colorDevice);
+release(depthDevice);
+```
