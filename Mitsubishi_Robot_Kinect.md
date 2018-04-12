@@ -457,6 +457,13 @@ for i = 1:500
 end
 ```
 
+Output:
+
+<div align="center">
+  <p>pcfromkinect output</p>
+  <img src="img/pcl_demo.bmp" width="700px" />
+</div>
+
 Release the objects.
 
 ```
