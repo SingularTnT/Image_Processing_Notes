@@ -214,13 +214,17 @@ figure(4);
 imshow(H2);
 ```
 
-<table><tr>
-<td align="top">
+<table>
+<tr>
+<td>
   <p align="middle"> Adaptive histogram equalization </p>
   <img src="img/depth_2_H1.bmp" border=0>
-  </td>
-<td align="top">
+</td>
+<td>
   <p align="middle"> Histogram equalization </p>
   <img src="img/depth_2_H2.bmp" border=0>
-  </td>
-</tr></table>
+</td>
+</tr>
+</table>
+
+
