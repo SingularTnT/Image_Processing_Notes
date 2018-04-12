@@ -52,3 +52,6 @@ Note: The resolution of the depth stream is dependent on the frame rate, and is 
 - [OpenNI](http://www.openni.ru/) -- (optional)
 
 ## Quick Start: Using the Kinect® for Windows® V1 from Image Acquisition Toolbox™
+
+# Detectron
+
