@@ -385,15 +385,12 @@ ptCloud = pcfromkinect(depthDevice,depthImage,colorImage,alignment)
 
 #### Description
 
----
-ptCloud = pcfromkinect(depthDevice,depthImage) returns a point cloud from a Kinect® depth image. The depthDevice input can be either a videoinput object or an imaq.VideoDevice object configured for Kinect (Versions 1 and 2) for Windows®.This function requires the Image Acquisition Toolbox™ software, which supports Kinect for Windows.
+**ptCloud = pcfromkinect(depthDevice,depthImage)** returns a point cloud from a Kinect® depth image. The depthDevice input can be either a videoinput object or an imaq.VideoDevice object configured for Kinect (Versions 1 and 2) for Windows®.This function requires the Image Acquisition Toolbox™ software, which supports Kinect for Windows.
 
----
-ptCloud = pcfromkinect(depthDevice,depthImage,colorImage) adds color to the returned point cloud, specified by the colorImage input.
+**ptCloud = pcfromkinect(depthDevice,depthImage,colorImage)** adds color to the returned point cloud, specified by the colorImage input.
 The Kinect for Windows system, designed for gaming, produces depthImage and colorImage as mirror images of the scene. The returned point cloud is corrected to match the actual scene.
 
----
-ptCloud = pcfromkinect(depthDevice,depthImage,colorImage,alignment) additionally returns the color point cloud with the origin specified at the center of the depth camera.
+**ptCloud = pcfromkinect(depthDevice,depthImage,colorImage,alignment)** additionally returns the color point cloud with the origin specified at the center of the depth camera.
 
 ### Examples
 
