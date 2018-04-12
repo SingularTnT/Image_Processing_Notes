@@ -51,4 +51,4 @@ Note: The resolution of the depth stream is dependent on the frame rate, and is 
 - [Computer Vision System Toobox](https://ww2.mathworks.cn/products/computer-vision.html) -- (optional)
 - [OpenNI](http://www.openni.ru/) -- (optional)
 
-## Quick Start: Using
+## Quick Start: Using the Kinect® for Windows® V1 from Image Acquisition Toolbox™
