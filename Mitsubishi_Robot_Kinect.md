@@ -59,13 +59,16 @@ This example shows how to obtain the data available from Kinect for Windows V1 s
 
 The Kinect for Windows has two sensors, an color sensor and a depth sensor. To enable independent acquisition from each of these devices, they are treated as two independent devices in the Image Acquisition Toolbox. This means that separate VIDEOINPUT object needs to be created for each of the color and depth(IR) devices.
 
-```matlab
+```
 % The Kinect for Windows Sensor shows up as two separate devices in IMAQHWINFO.
 hwInfo = imaqhwinfo('kinect')
 ```
 
-hwInfo = 
-       AdaptorDllName: 'C:\ProgramData\MATLAB\SupportPackages\R2017b\toolbox\imaq\supportpackages\kinectruntime\adaptor\win64\mwkinectimaq.dll'
+    hwInfo = 
+    
+      包含以下字段的 struct:
+    
+       AdaptorDllName:    'C:\ProgramData\MATLAB\SupportPackages\R2017b\toolbox\imaq\supportpackages\kinectruntime\adaptor\win64\mwkinectimaq.dll'
     AdaptorDllVersion: '5.3 (R2017b)'
           AdaptorName: 'kinect'
             DeviceIDs: {[1]  [2]}
@@ -74,9 +77,9 @@ hwInfo =
 ```
 hwInfo.DeviceInfo(1)
 ```
-ans = 
+    ans = 
 
-  包含以下字段的 struct:
+      包含以下字段的 struct:
 
              DefaultFormat: 'RGB_640x480'
        DeviceFileSupported: 0
@@ -89,9 +92,9 @@ ans =
 ```
 hwInfo.DeviceInfo(2)
 ```
-ans = 
+    ans = 
 
-  包含以下字段的 struct:
+      包含以下字段的 struct:
 
              DefaultFormat: 'Depth_640x480'
        DeviceFileSupported: 0
@@ -100,3 +103,12 @@ ans =
      VideoInputConstructor: 'videoinput('kinect', 2)'
     VideoDeviceConstructor: 'imaq.VideoDevice('kinect', 2)'
           SupportedFormats: {'Depth_320x240'  'Depth_640x480'  'Depth_80x60'}
+
+#### Acquire Color and Depth Data
+
+In order to acquire synchronized color and depth data, we must use manual triggering instead of immediate triggering. The default immediate triggering suffers from a lag between streams while performing synchronized acquisition. This is due to the overhead in starting of streams sequentially.
+
+```
+% Create the VIDEOINPUT objects for the two streams
+colorVid = videoinput('kinect',1)
+```
