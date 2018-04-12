@@ -191,11 +191,11 @@ imshow(depthFrameData)
 
 <table><tr>
 <td>
-  <p align="center"> color image </p>
+  <p align="middle"> color image </p>
   <img src="img/rgb_2.bmp" border=0>
   </td>
 <td>
-  <p align="center"> depth image </p>
+  <p align="middle"> depth image </p>
   <img src="img/depth_2.bmp" border=0>
   </td>
 </tr></table>
@@ -215,12 +215,12 @@ imshow(H2);
 ```
 
 <table><tr>
-<td>
-  <p align="center"> Adaptive histogram equalization </p>
+<td align="top">
+  <p align="middle"> Adaptive histogram equalization </p>
   <img src="img/depth_2_H1.bmp" border=0>
   </td>
-<td>
-  <p align="center"> Histogram equalization </p>
+<td align="top">
+  <p align="middle"> Histogram equalization </p>
   <img src="img/depth_2_H2.bmp" border=0>
   </td>
 </tr></table>
