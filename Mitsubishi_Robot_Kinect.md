@@ -494,7 +494,7 @@ Direction of the image coordinate system, specified as the character vector 'col
 The origin of a right-handed world coordinate system is at the center of the depth camera. The x-axis of the coordinate system points to the right, the y-axis points downward, and the z-axis points from the camera.
 
 <div align="center">
-  <img src="img/pcfromkinect_coordinate.png" width="700px" />
+  <img src="img/pcfromkinect_coordinate.png" width="300px" />
 </div>
 
 #### Output Arguments
