@@ -114,6 +114,8 @@ hwInfo.DeviceInfo(2)
 
 In order to acquire synchronized color and depth data, we must use manual triggering instead of immediate triggering. The default immediate triggering suffers from a lag between streams while performing synchronized acquisition. This is due to the overhead in starting of streams sequentially.
 
+**Notice**: You can get the frame of the video and the frame is filled with unsigned 16bit data. Actual distance value from the camera is data millimeters.
+
 ```
 % Create the VIDEOINPUT objects for the two streams
 colorVid = videoinput('kinect',1)
