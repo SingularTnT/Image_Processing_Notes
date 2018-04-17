@@ -208,7 +208,7 @@ imshow(depthFrameData)
   </td>
 </tr></table>
 
-Since depth image is uint16 type, one cannot distinguish the diffence of the grey level, so it is recommended to  re-quantization the grey level for a display convenience.
+Since depth image is uint16 type, one cannot distinguish the difference of the grey level, so it is recommended to  re-quantization the grey level for a display convenience.
 
 ```
 % Adaptive histogram equalization
