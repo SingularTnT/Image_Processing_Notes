@@ -25,7 +25,7 @@ Inside the sensor case, a Kinect for Windows sensor contains:
 |Kinect | Array Specifications|
 | :------------ |:---------------:|
 |Color Camera  | 640 x 480 |
-|Depth Camera  | 320 x 240, 640 x 480 |
+|Depth Camera  | 320 x 240 |
 |Max Depth Distance  | ~4.5 M |
 |Min Depth Distance  | 40 cm in near mode |
 |Horizontal Field of View  | 57 degrees |
