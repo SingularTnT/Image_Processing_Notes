@@ -1,4 +1,4 @@
-# image-processing-note
+# Image-processing-notes
 some notes or tricks on image processing
 
 ## Python
