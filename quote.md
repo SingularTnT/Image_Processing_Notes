@@ -8,11 +8,11 @@
 
 #### **Halcon Parameters and Data Structures:**
 
-1. Image: 
-2. Regions
-3. XLDs - XLD is the abbreviation for eXtended Line Description and comprises all contour and polygon based data.
-4. Handles
-5. Tuple Mode
+* Image
+* Regions
+* XLDs \(eXtended Line Description\)
+* Handles
+* Tuple Mode
 
  
 
