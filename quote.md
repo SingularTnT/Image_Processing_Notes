@@ -7,7 +7,13 @@
 ![Basic architecture of HALCON](.gitbook/assets/3drwfbi-dmfzf0o8evmlj.png)
 
 **Halcon Parameters and Data Structures:**  
-1. Images
+1. Images  
+    - Images belong to the iconic data.  
+    - The major part of an image are the channels, i.e., matrices containing the gray values of various pixel types.  
+    -   
+2. 
+
+
 
  
 
