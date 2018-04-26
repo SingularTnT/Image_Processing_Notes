@@ -14,5 +14,14 @@
 * Handles
 * Tuple Mode
 
- 
+####  maximum number of parameters:
+
+* iconic input parameters: 9
+* iconic output parameters: 9
+* control input parameters: 20
+* control output parameters: 20
+
+#### Acquiring images
+
+![acquiring images steps](.gitbook/assets/image.png)
 
